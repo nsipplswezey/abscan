@@ -7,12 +7,31 @@ import {
   Text,
   TouchableHighlight,
   View,
-	Image
+//	Image
 } from 'react-native';
 import Camera from 'react-native-camera';
-//import Image from 'react-native-transformable-image';
+import Image from 'react-native-transformable-image';
+
+const {width, height} = Dimensions.get('window');
+
+const uri1 = '';
+const uri2 = '';
+
+const images = {
+  '895' :'',
+  '404' : 'TAG404-cropped.png'
+}
 
 export default class App extends Component<{}> {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      uri: uri1
+    }
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -20,21 +39,18 @@ export default class App extends Component<{}> {
           ref={(cam) => {
             this.camera = cam;
           }}
-	  onBarCodeRead={this.onBarCodeRead.bind(this)}
           style={styles.preview}
           aspect={Camera.constants.Aspect.fill}>
-			    <Image source={require('./img/Duplicate895-cropped.jpg')} />
-          <Text style={styles.capture} onPress={this.takePicture.bind(this)}>[CAPTURE]</Text>
+			    <Image
+            source={require('./img/' + images['404'])
+            pixels={{width: 1043, height: 829}}
+            style={{width: width, height: height}}
+            } />
+          <Text style={styles.capture} onPress={this.takePicture.bind(this)}>[CAPTURE!]</Text>
 
 
         </Camera>
       </View>
-    );
-  }
-  onBarCodeRead(e) {
-    console.log(
-        "Barcode Found!",
-        "Type: " + e.type + "\nData: " + e.data
     );
   }
 
